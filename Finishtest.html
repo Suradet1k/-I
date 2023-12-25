@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>งานแก้ I</title>
+</head>
+<body>
+
+<h2>งานแก้ I</h2>
+<h2>หาค่า v และ a ตามกราฟ</h2>
+<label for="aValue">กำหนดเลขหน้าตัวแปร: </label>
+<input type="number" id="aValue" step="any">
+<br><br>
+<label for="cValue">กำหนดเลขหลังตวแปร: </label>
+<input type="number" id="cValue" step="any">
+<br><br>
+<label for="nValue">กำหนดค่าเลขยกกำลัง: </label>
+<input type="number" id="nValue" step="any">
+<button onclick="calculate()">คำนวณ</button>
+<br><br>
+<button onclick="clearResults()">ล้างคำตอบ</button>
+<br><br>
+<h2>หาค่า v ด้วยผลต่าง</h2>
+<label for="x1Value">ป้อนค่า x1: </label>
+<input type="number" id="x1Value" step="any">
+<br><br>
+<label for="x2Value">ป้อนค่า x2: </label>
+<input type="number" id="x2Value" step="any">
+<br><br>
+<label for="t1Value">ป้อนค่า t1: </label>
+<input type="number" id="t1Value" step="any">
+<br><br>
+<label for="t2Value">ป้อนค่า t2: </label>
+<input type="number" id="t2Value" step="any">
+<button onclick="calculate1()">คำนวณ</button>
+<br><br>
+<button onclick="clearResults1()">ล้างคำตอบ</button>
+<p id="derivativeResult"></p>
+<p id="vResult"></p>
+
+<script>
+  // ฟังก์ชันคำนวณอนุพันธ์ของ ax^n - c ที่ x = 1
+  function differentiate(f, x) {
+    const h = 0.0001; // ค่าเล็กเพื่อใช้ในการประมาณอนุพันธ์
+
+    // ใช้สูตรหลักของอนุพันธ์ (f'(x) = [f(x + h) - f(x)] / h) เพื่อคำนวณ
+    const derivative = (f(x + h) - f(x)) / h;
+    return derivative.toFixed(2); 
+  }
+
+  // ฟังก์ชัน ax^n - c
+  function myFunction(a, x, n, c) {
+    return a * Math.pow(x, n) - c;
+  }
+
+  // ฟังก์ชันสำหรับคำนวณค่า v
+  function calculate() {
+    const aValue = parseFloat(document.getElementById('aValue').value);
+    const cValue = parseFloat(document.getElementById('cValue').value);
+    const nValue = parseFloat(document.getElementById('nValue').value);
+    const x1Value = parseFloat(document.getElementById('x1Value').value);
+    const x2Value = parseFloat(document.getElementById('x2Value').value);
+    const t1Value = parseFloat(document.getElementById('t1Value').value);
+    const t2Value = parseFloat(document.getElementById('t2Value').value);
+
+    const derivativeResult = differentiate((x) => myFunction(aValue, x, nValue, cValue), 1);
+    const vResult = (x2Value - x1Value) / (t2Value - t1Value);
+
+    document.getElementById('derivativeResult').innerText = `ค่าที่ได้ คือ ${derivativeResult}`;
+    
+  }
+  function calculate1() {
+    const x1Value = parseFloat(document.getElementById('x1Value').value);
+    const x2Value = parseFloat(document.getElementById('x2Value').value);
+    const t1Value = parseFloat(document.getElementById('t1Value').value);
+    const t2Value = parseFloat(document.getElementById('t2Value').value);
+
+    
+    const vResult = (x2Value - x1Value) / (t2Value - t1Value);
+
+    
+    document.getElementById('vResult').innerText = `ค่า v คือ ${vResult}`;
+  }
+  function clearResults() {
+    document.getElementById('derivativeResult').innerText = '';
+  }
+    function clearResults1() {
+    document.getElementById('vResult').innerText = '';
+  }
+</script>
+
+</body>
+</html>
